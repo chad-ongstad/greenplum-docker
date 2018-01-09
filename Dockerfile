@@ -22,7 +22,7 @@ RUN mkdir /var/lib/gpdb/data/gpdata2
 # create master directory
 RUN mkdir /var/lib/gpdb/data/gpmaster
 # set permissions
-RUN chown -R gpadmin:gpadmin /var/lib/gpdb
+#RUN chown -R gpadmin:gpadmin /var/lib/gpdb
 
 
 # set locale
@@ -43,8 +43,14 @@ ENV MASTER_DATA_DIRECTORY=/var/lib/gpdb/data/gpmaster/gpsne-1
 
 # add the entrypoint script
 ADD docker-entrypoint.sh /usr/local/bin/
+ADD monitor_master.sh   .
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
-#sshd must exist for gpdb
+# add monitor script
+RUN chmod +x monitor_master.sh
+#RUN chown gpadmin:gpadmin monitor_master.sh
+RUN chown -R gpadmin:gpadmin /var/lib/gpdb
+
+#sshd must exist for gpdb monitor_master.sh
 RUN echo 'gpadmin ALL=(ALL) NOPASSWD:/usr/sbin/sshd' >> /etc/sudoers
 
 
@@ -56,6 +62,9 @@ ENV PYTHONPATH=$GPHOME/lib/python
 ENV LD_LIBRARY_PATH=$GPHOME/lib:$LD_LIBRARY_PATH
 ENV OPENSSL_CONF=$GPHOME/etc/openssl.cnf
 
+####CHANGE THIS TO YOUR LOCAL SUBNET
+
 VOLUME /var/lib/gpdb/
 ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 5432
+CMD ["./monitor_master.sh"]
