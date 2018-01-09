@@ -21,8 +21,6 @@ RUN mkdir -p /var/lib/gpdb/data/gpdata1
 RUN mkdir /var/lib/gpdb/data/gpdata2
 # create master directory
 RUN mkdir /var/lib/gpdb/data/gpmaster
-# set permissions
-#RUN chown -R gpadmin:gpadmin /var/lib/gpdb
 
 
 # set locale
@@ -47,7 +45,6 @@ ADD monitor_master.sh   .
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 # add monitor script
 RUN chmod +x monitor_master.sh
-#RUN chown gpadmin:gpadmin monitor_master.sh
 RUN chown -R gpadmin:gpadmin /var/lib/gpdb
 
 #sshd must exist for gpdb monitor_master.sh
