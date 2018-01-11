@@ -1,0 +1,39 @@
+version: "3"
+services:
+  db_seg_1:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_1
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_1:/var/lib/gpdb/
+  db_seg_2:
+    build: .
+    environment:
+       - GP_NODE=segment
+    hostname: db_seg_2
+    command: tail -f /dev/null
+    volumes:
+      - db_seg_2:/var/lib/gpdb/
+  db_master_1:
+    build: .
+    environment:
+       - GP_NODE=master
+       - HOSTFILE=multihost
+    hostname: db_master_1
+    command: tail -f /dev/null
+    volumes:
+      - db_master_1:/var/lib/gpdb/
+    depends_on: 
+      - db_seg_1
+      - db_seg_2
+    ports:
+      - "5432:5432"
+    links:
+      - db_seg_1:seg1
+      - db_seg_2:seg2
+volumes:
+  db_master_1:
+  db_seg_1:
+  db_seg_2:

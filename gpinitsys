@@ -12,7 +12,7 @@
 # A name for the array you are configuring. You can use any name you 
 # like. Enclose the name in quotes if the name contains spaces.
 
-ARRAY_NAME="GPDB SINGLENODE"
+ARRAY_NAME="DATAROADTECH ARRAY"
 
 
 # This specifies the file that contains the list of segment host names 
@@ -62,7 +62,7 @@ declare -a DATA_DIRECTORY=(/var/lib/gpdb/data/gpdata1 /var/lib/gpdb/data/gpdata2
 
 # The OS-configured hostname of the Greenplum Database master instance.
 
-MASTER_HOSTNAME=gplum
+MASTER_HOSTNAME=$(hostname)
 
 
 # The location where the data directory will be created on the  

@@ -32,7 +32,8 @@ ENV LC_ALL en_US.UTF-8
 WORKDIR /var/lib/gpdb/setup/
 
 #REPLACE WITH "ADD hostlist ." to specify segment nodes
-ADD hostlist .
+ADD multihost .
+ADD singlehost .
 ADD gpinitsys .
 RUN chown -R gpadmin:gpadmin /var/lib/gpdb
 
@@ -58,10 +59,12 @@ ENV PATH=$GPHOME/bin:$PATH
 ENV PYTHONPATH=$GPHOME/lib/python
 ENV LD_LIBRARY_PATH=$GPHOME/lib:$LD_LIBRARY_PATH
 ENV OPENSSL_CONF=$GPHOME/etc/openssl.cnf
-
+ENV GP_NODE=master
+ENV HOSTFILE=singlehost
 ####CHANGE THIS TO YOUR LOCAL SUBNET
 
 VOLUME /var/lib/gpdb/
 ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 5432
+
 CMD ["./monitor_master.sh"]

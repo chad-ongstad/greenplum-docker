@@ -4,16 +4,33 @@ Docker for greenplum (5.3.0) database.
 ## Build
 docker build -t ubuntu-gpdb .
 
-## Run
+## Single Node Docker
 
-docker run -d -p 25432:5432 --hostname=gplum  --name reflect-gpdb ubuntu-gpdb
+From the command line execute the following command:
+docker run -it -p 5432:5432 --hostname=db_master_1  --name reflect-gpdb ubuntu-gpdb bash
 
-Connect to your host on port 25432 user/pass is gpadmin/gpadmin.
+Connect to your host on port 5432 user/pass is gpadmin/dataroad
 
-### hostlist
-This file contains the names of the hosts to connect to. By default there is one host 'gplum'.
+
+## Multi Node Docker-Compose
+From the command line execute the following command: docker-compose up
+
+Connect to your host on port 5432 user/pass is gpadmin/dataroad
+
+
+
+### singlehost
+This file contains the name of the hosts to connect to. By default there is one host 'db_master_1'.
+
+### multihost
+This file contains the name of the segments that the master connects to. This is used when running a multi-node cluster  and has 3 segments in it.
 
 ###  gpinitsys
 Configuration file for setting up the greenplum cluster.
+
+
+##Questions?
+
+chad@dataroadtech.com
 
 
