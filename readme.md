@@ -15,7 +15,7 @@ Connect to your host on port 5432 user/pass is gpadmin/dataroad
 ## Multi Node Docker-Compose
 From the command line execute the following command: docker-compose up
 
-Connect to your host on port 5432 user/pass is gpadmin/dataroad
+You can connect to your host using PGADMIN on port 5432 user/pass is gpadmin/dataroad
 
 
 
